@@ -1,6 +1,6 @@
 ## Temat 5: System Zarządzania Hotelem
 
-System zarzadzania hotelem ma za zadanie umożliwić gościom dokonywanie rezerwacji i dołączanie usług dodatkowych. Anulowanie rezerwacji po określonym czasie będzie się wiązało z naliczeniem opłaty manipulacyjnej. Recepcjoniści mają mieć możliwość meldowania i wymeldowywania gości. System jest odpowiedzialny za sprawdzanie dostępności pokoi oraz blokowanie tych zarezerwowanych. Przy wymeldowaniu gościa system ma wystawić fakturę biorącą pod uwagę ilość dób spędzonych w hotelu pomnożonych przez dzienną stawkę + koszt usług dodatkowych.
+System zarządzania hotelem ma za zadanie umożliwić gościom dokonywanie rezerwacji i dołączanie usług dodatkowych. Anulowanie rezerwacji po określonym czasie będzie się wiązało z naliczeniem opłaty manipulacyjnej. Recepcjoniści mają mieć możliwość meldowania i wymeldowywania gości. System jest odpowiedzialny za sprawdzanie dostępności pokoi oraz blokowanie tych zarezerwowanych. Przy wymeldowaniu gościa system ma wystawić fakturę biorącą pod uwagę ilość dób spędzonych w hotelu pomnożonych przez dzienną stawkę + koszt usług dodatkowych.
 
 ### User Stories:
 
