@@ -1,42 +1,45 @@
-Temat 5: System Zarządzania Hotelem
+## Temat 5: System Zarządzania Hotelem
+
 System zarzadzania hotelem ma za zadanie umożliwić gościom dokonywanie rezerwacji i dołączanie usług dodatkowych. Anulowanie rezerwacji po określonym czasie będzie się wiązało z naliczeniem opłaty manipulacyjnej. Recepcjoniści mają mieć możliwość meldowania i wymeldowywania gości. System jest odpowiedzialny za sprawdzanie dostępności pokoi oraz blokowanie tych zarezerwowanych. Przy wymeldowaniu gościa system ma wystawić fakturę biorącą pod uwagę ilość dób spędzonych w hotelu pomnożonych przez dzienną stawkę + koszt usług dodatkowych.
 
-Typ: Wyszukiwanie / Przeglądanie
+### User Stories:
+
+#### Typ: Wyszukiwanie / Przeglądanie
 
 - **Jako** Gość
 - **chcę** sprawdzić dostępność pokoi w wybranym przedziale czasowym,
 - **aby** upewnić się, że hotel dysponuje wolnymi miejscami przed rozpoczęciem rezerwacji.
 - Kryterium akceptacji: System przeszukuje bazę i zwraca listę dostępnych pokoi, pomijając te, które są już zablokowane lub zarezerwowane w podanych datach.
 
-Typ: Zarządzanie Rezerwacjami
+#### Typ: Zarządzanie Rezerwacjami
 
 - **Jako** Gość
 - **chcę** zarezerwować wybrany pokój na konkretny termin,
 - **aby** mieć zagwarantowany nocleg podczas mojego wyjazdu.
 - Kryterium akceptacji: System tworzy nową rezerwację, wiąże ją z profilem gościa i natychmiast blokuje wybrany pokój na ten termin, aby nikt inny go nie zajął.
 
-Typ: Zarządzanie Usługami
+#### Typ: Zarządzanie Usługami
 
 - **Jako** Gość
 - **chcę** dołączyć usługi dodatkowe (np. śniadanie, parking) do mojej rezerwacji,
 - **aby** dostosować pobyt w hotelu do moich potrzeb.
 - Kryterium akceptacji: Wybrane usługi zostają poprawnie przypisane do rezerwacji, a ich koszt zostaje zapamiętany przez system do późniejszego uwzględnienia na fakturze.
 
-Typ: Anulowanie Rezerwacji
+#### Typ: Anulowanie Rezerwacji
 
 - **Jako** Gość
 - **chcę** mieć możliwość anulowania mojej rezerwacji,
 - **aby** zrezygnować z pobytu w przypadku nagłej zmiany planów.
 - Kryterium akceptacji: System odblokowuje pokój. Jeśli anulowanie następuje po upływie określonego w regulaminie czasu, system automatycznie nalicza opłatę manipulacyjną przypisaną do konta gościa.
 
-Typ: Obsługa Gościa (Meldowanie)
+#### Typ: Obsługa Gościa (Meldowanie)
 
 - **Jako** Recepcjonista
 - **chcę** zameldować gościa przy jego przyjeździe,
 - **aby** formalnie rozpocząć jego pobyt w systemie i móc wydać mu klucze do pokoju.
 - Kryterium akceptacji: Status rezerwacji w systemie zmienia się na aktywny (zameldowany), a czas rozpoczęcia pobytu zostaje odnotowany.
 
-Typ: Rozliczenie / Wymeldowanie
+#### Typ: Rozliczenie / Wymeldowanie
 
 - **Jako** Recepcjonista
 - **chcę** wymeldować gościa przy wyjeździe,
