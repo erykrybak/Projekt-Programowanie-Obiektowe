@@ -1,5 +1,5 @@
-include "room.h"
+#include "room.h"
 
-void changeStatus(bool status){
-    
-}
+int Room::getRoomNumber() const { return roomNumber; }
+Room::Room(int roomNumber, double roomRate)
+    : roomNumber(roomNumber), roomRate(roomRate) {}

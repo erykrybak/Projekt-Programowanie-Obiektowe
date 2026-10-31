@@ -1,8 +1,4 @@
 #include "guest.h"
-Reservation Guest::makeReservation(std::time_t date, std::vector<AdditionalService> services) {
-    
-}
 
-void Guest::cancelReservation(Reservation reservation) {
-    
-}
+Guest::Guest(std::string name, std::string surname, int id)
+    : Person(name, surname, id) {}

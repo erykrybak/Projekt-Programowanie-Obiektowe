@@ -1,7 +1,8 @@
+#pragma once
 #include <string>
 
-class AdditionalService{
-    private:
-        string name;
-        double price;
+class AdditionalService {
+private:
+  std::string name;
+  double price;
 };
