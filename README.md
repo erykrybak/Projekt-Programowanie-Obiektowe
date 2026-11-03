@@ -45,3 +45,35 @@ System zarządzania hotelem ma za zadanie umożliwić gościom dokonywanie rezer
 - **chcę** wymeldować gościa przy wyjeździe,
 - **aby** zakończyć jego pobyt i wystawić odpowiedni rachunek za usługi.
 - Kryterium akceptacji: System zwalnia pokój i automatycznie generuje Fakturę, obliczając całkowity koszt pobytu (liczba dób pobytu × dzienna stawka za pokój + zsumowany koszt wybranych usług dodatkowych).
+
+### Przypadki użycia
+
+1. Sprawdź dostępność pokoi
+- Aktorzy: Gość, Recepcjonista
+- Opis: Użytkownik wprowadza zakres dat, dla którego system sprawdza dostępność pokoi, wyświetla dostępne a odrzuca zarezerwowane w tym terminie.
+- Powiązanie z User Story: Odpowiada pierwszej historii użytkownika (wyszukiwanie/przeglądanie)
+
+2. Utwórz rezerwację
+- Aktor: Gość
+- Opis: Gość wybiera pokój z listy dostępnych pokoi, podaje swoje dane oraz termin pobytu i zatwierdza rezerwację. System tworzy rezerwację powiązaną z danymi gościa i blokuje wyznaczony pokój w wybranym przedziale czasowym.
+- Powiązanie z User Story: Odpowiada drugiej historii użytkownika (Zarządzanie rezerwacjami) 
+
+3. Dołącz usługę dodatkową
+- Aktor: Gość 
+- Opis: Gość wybiera z listy usług dodatkowych usługi dodatkowe, które przypisuje do swojej aktywnej rezerwacji. System zapisuje koszt wskazanych usług w bilansie rezerwacji, w celu późniejszego uwzględnienia tej kwoty w fakturze.
+- Powiązanie z User Story: Odpowiada trzeciej historii użytkownika (zarządzanie usługami)
+
+4. Anuluj rezerwację
+- Aktor: Gość
+- Opis: Gość wybiera swoją rezerwację i zgłasza chęć jej anulowania. System weryfikuje czas pozostały do rozpoczęcia pobytu. Jeśli czas anulowania przekracza limit, system nalicza opłatę manipulacyjną i przypisuje ją do gościa. Informuje użytkownika o wyniku, odblokowuje pokój i zmienia status rezerwacji na anulowaną.
+- Powiązanie z User Story: Odpowiada czwartej historii użytkownika (anulowanie rezerwacji)
+
+5. Zamelduj gościa 
+- Aktor: Recepcjonista
+- Opis: Recepcjonista wyszukuje rezerwację gościa w dniu jego przyjazdu i inicjuje proces meldowania. System odnotowuje datę i godzinę rozpoczęcia pobytu oraz zmienia status rezeracji na aktywną.
+- User Story: Odpowiada piątej historii użytkownika (obsługa gościa/meldowanie)
+
+6. Wymelduj gościa 
+- Aktor: Recepcjonista 
+- Opis: Recepcjonista wymeldowuje gościa przy wyjeździe. System automatycznie generuje fakturę według wzoru (dni*stawka+usługi dodatkowe) i zmienia status rezerwacji na zakończoną, a status pokoju na dostępny
+- User Story: Odpowiada szóstej historii użytkownika (rozliczanie/wymeldowanie)
