@@ -13,6 +13,7 @@ private:
   int guestId;
 
 public:
+  bool checkedIn = false;
   double countCancellationFee(const Reservation &res, int daysToCancel,
                               double cancellationFeeAmount);
   Reservation(int id, int guestId, int roomNumber, std::time_t startDate,

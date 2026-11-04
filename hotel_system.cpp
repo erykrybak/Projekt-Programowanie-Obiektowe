@@ -58,3 +58,24 @@ bool HotelSystem::cancelReservation(int reservationID) {
   return false;
 }
 
+bool HotelSystem::guestCheckIn(int rId) {
+  for (size_t i = 0; i < reservationList.size(); i++) {
+    if (rId == reservationList[i].getId()) {
+      reservationList[i].checkedIn = true;
+      return true;
+    }
+    return false;
+  }
+}
+bool HotelSystem::guestCheckOut(int rId) {
+  for (size_t i = 0; i < reservationList.size(); i++) {
+    if (rId == reservationList[i].getId()) {
+      if (!reservationList[i].checkedIn) {
+        return false;
+      }
+      reservationList.erase(reservationList.begin() + i);
+      return true;
+    }
+    return false;
+  }
+}

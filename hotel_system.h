@@ -17,4 +17,6 @@ public:
                                      std::time_t endDate);
   int makeReservation(int guestId, time_t from, time_t to, int roomNumber);
   bool cancelReservation(int reservationID);
+  bool guestCheckIn(int rId);
+  bool guestCheckOut(int rId);
 };
