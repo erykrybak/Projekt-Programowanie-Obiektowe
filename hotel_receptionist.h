@@ -1,11 +1,11 @@
-#pragma once
 #include "person.h"
 #include "reservation.h"
 
-class HotelReceptionist: private Person{
-    private:
-        int workerID;
-    public:
-        void guestCheckIn(Reservation reservation);
-        void guestCheckOut(Reservation reservation);
+class HotelReceptionist : private Person {
+private:
+  int workerID;
+
+public:
+  bool guestCheckIn(int guestId, int reservationId);
+  bool guestCheckOut(int reservationId);
 };

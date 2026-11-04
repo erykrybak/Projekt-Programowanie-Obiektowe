@@ -1,9 +1,5 @@
 #include "hotel_receptionist.h"
 
-void guestCheckIn(Reservation reservation){
+bool guestCheckIn(int guestId, int reservationId) {}
+bool guestCheckOut(int reservationId) {}
 
-}
-
-void guestCheckOut(Reservation reservation){
-
-}
