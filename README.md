@@ -55,7 +55,7 @@ System zarządzania hotelem ma za zadanie umożliwić gościom dokonywanie rezer
 
 2. Utwórz rezerwację
 - Aktor: Gość
-- Opis: Gość wybiera pokój z listy dostępnych pokoi, podaje swoje dane oraz termin pobytu i zatwierdza rezerwację. System dodaje gościa na listę gości, tworzy rezerwację powiązaną z danymi gościa i blokuje wyznaczony pokój w wybranym przedziale czasowym
+- Opis: Gość wybiera pokój z listy dostępnych pokoi, podaje swoje dane oraz termin pobytu i zatwierdza rezerwację. System potwierdza dostępność pokoju i zgodność danych, tworzy rezerwację powiązaną z danymi gościa i blokuje wyznaczony pokój w wybranym przedziale czasowym
 - Powiązanie z User Story: Odpowiada drugiej historii użytkownika (Zarządzanie rezerwacjami) 
 
 3. Dołącz usługę dodatkową
@@ -65,12 +65,12 @@ System zarządzania hotelem ma za zadanie umożliwić gościom dokonywanie rezer
 
 4. Anuluj rezerwację
 - Aktor: Gość
-- Opis: Gość wybiera swoją rezerwację i zgłasza chęć jej anulowania, rezerwacja zostaje usunięta z systemu a status pokoju zmienia się na dostępny
+- Opis: Gość wybiera swoją rezerwację i zgłasza chęć jej anulowania, rezerwacja zostaje oflagowana w systemie jako anulowana
 - Powiązanie z User Story: Odpowiada czwartej historii użytkownika (anulowanie rezerwacji)
 
 5. Zamelduj gościa 
 - Aktor: Recepcjonista
-- Opis: Recepcjonista wyszukuje rezerwację gościa w dniu jego przyjazdu i inicjuje proces meldowania. System odnotowuje datę i godzinę rozpoczęcia pobytu oraz zmienia status rezeracji na aktywną a status gościa na zameldowanego
+- Opis: Recepcjonista wyszukuje rezerwację gościa w dniu jego przyjazdu i inicjuje proces meldowania. System odnotowuje datę i godzinę rozpoczęcia pobytu oraz zmienia status gościa na zameldowanego
 - User Story: Odpowiada piątej historii użytkownika (obsługa gościa/meldowanie)
 
 6. Wymelduj gościa 
