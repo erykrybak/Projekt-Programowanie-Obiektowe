@@ -1,5 +1,5 @@
-#include <time>
 #pragma once
+#include <time>
 
 class Bill{
     private:
