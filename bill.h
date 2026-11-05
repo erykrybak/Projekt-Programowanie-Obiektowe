@@ -1,11 +1,12 @@
 #pragma once
-#include <time>
+#include <ctime>
 
-class Bill{
-    private:
-        int billID;
-        std::time_t creationDate;
-        double total;
-    public:
-        double countTotal();
+class Bill {
+private:
+  int billID;
+  std::time_t creationDate;
+  double total;
+
+public:
+  double countTotal();
 };

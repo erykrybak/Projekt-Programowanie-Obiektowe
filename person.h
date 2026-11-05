@@ -5,5 +5,7 @@ class Person {
 private:
   std::string surname;
   std::string name;
+
+protected:
   int id;
 };

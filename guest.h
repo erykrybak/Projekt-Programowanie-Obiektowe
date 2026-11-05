@@ -5,4 +5,5 @@
 class Guest : public Person {
 public:
   Guest(std::string name, std::string surname, int id);
+  int getId() const;
 };

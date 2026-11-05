@@ -1,7 +1,8 @@
+#include "hotel_system.h"
 #include <iostream>
 using namespace std;
 
 int main() {
-  cout << "Hello World!";
-  return 0;
+  cout << "Witamy w hotelu";
+  HotelSystem hotel_system;
 }

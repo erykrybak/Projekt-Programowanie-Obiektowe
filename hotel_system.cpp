@@ -64,8 +64,8 @@ bool HotelSystem::guestCheckIn(int rId) {
       reservationList[i].checkedIn = true;
       return true;
     }
-    return false;
   }
+  return false;
 }
 bool HotelSystem::guestCheckOut(int rId) {
   for (size_t i = 0; i < reservationList.size(); i++) {
@@ -76,6 +76,6 @@ bool HotelSystem::guestCheckOut(int rId) {
       reservationList.erase(reservationList.begin() + i);
       return true;
     }
-    return false;
   }
+  return false;
 }
