@@ -19,4 +19,6 @@ public:
   bool cancelReservation(int reservationID);
   bool guestCheckIn(int rId);
   bool guestCheckOut(int rId);
+  void addRoom(Room room);
+  void addGuest(Guest guest);
 };

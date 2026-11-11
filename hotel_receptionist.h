@@ -8,6 +8,7 @@ private:
   int workerID;
 
 public:
+  HotelReceptionist(std::string name, std::string surname, int id, int workerID);
   void guestCheckIn(int reservationId, HotelSystem &system);
   void guestCheckOut(int reservationId, HotelSystem &system);
 };

@@ -1,6 +1,9 @@
 #include "hotel_receptionist.h"
 #include <iostream>
 
+HotelReceptionist::HotelReceptionist(std::string name, std::string surname, int id, int workerID)
+    : Person(name, surname, id), workerID(workerID) {}
+
 void HotelReceptionist::guestCheckIn(int reservationId, HotelSystem &system) {
   bool status = system.guestCheckIn(reservationId);
   if (status) {

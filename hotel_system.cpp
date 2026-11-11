@@ -61,7 +61,7 @@ bool HotelSystem::cancelReservation(int reservationID) {
 bool HotelSystem::guestCheckIn(int rId) {
   for (size_t i = 0; i < reservationList.size(); i++) {
     if (rId == reservationList[i].getId()) {
-      reservationList[i].checkedIn = true;
+      reservationList[i].checkIn();
       return true;
     }
   }
@@ -70,7 +70,7 @@ bool HotelSystem::guestCheckIn(int rId) {
 bool HotelSystem::guestCheckOut(int rId) {
   for (size_t i = 0; i < reservationList.size(); i++) {
     if (rId == reservationList[i].getId()) {
-      if (!reservationList[i].checkedIn) {
+      if (!reservationList[i].isCheckedIn()) {
         return false;
       }
       reservationList.erase(reservationList.begin() + i);
@@ -78,4 +78,11 @@ bool HotelSystem::guestCheckOut(int rId) {
     }
   }
   return false;
+}
+void HotelSystem::addRoom(Room room){
+roomList.push_back(room);
+}
+
+void HotelSystem::addGuest(Guest guest){
+guestList.push_back(guest);
 }

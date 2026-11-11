@@ -5,7 +5,11 @@ class Person {
 private:
   std::string surname;
   std::string name;
-
-protected:
   int id;
+
+public:
+  Person(std::string name, std::string surname, int id);
+  int getId() const;
+  std::string getName() const;
+  std::string getSurname() const;
 };

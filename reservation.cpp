@@ -31,3 +31,10 @@ Reservation::Reservation(int id, int guestId, int roomNumber,
 int Reservation::getId() const { return id; }
 bool Reservation::isCanceled() const { return canceled; }
 void Reservation::cancel() { canceled = true; }
+void Reservation::checkIn() { 
+    checkedIn = true; 
+    checkInTime = std::time(nullptr);
+}
+bool Reservation::isCheckedIn() { return checkedIn; }
+int Reservation::getGuestId() { return guestId; }
+

@@ -1,5 +1,3 @@
 #include "bill.h"
 
-double countTotal(){
-    
-}
+double countTotal() { return 0; }
