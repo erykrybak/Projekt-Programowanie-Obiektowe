@@ -4,5 +4,5 @@
 
 class Guest : public Person {
 public:
-  Guest(std::string name, std::string surname, int id);
+  Guest(const std::string& name, const std::string& surname, int id);
 };
