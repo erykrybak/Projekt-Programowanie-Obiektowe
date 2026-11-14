@@ -3,13 +3,15 @@
 
 class Person {
 private:
-  std::string surname;
   std::string name;
+  std::string surname;
   int id;
 
 public:
-  Person(std::string name, std::string surname, int id);
+  Person(const std::string &name, const std::string &surname, int id);
+  virtual ~Person();
   int getId() const;
   std::string getName() const;
   std::string getSurname() const;
+  virtual void displayData() const;
 };
