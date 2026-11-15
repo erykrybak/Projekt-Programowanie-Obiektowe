@@ -13,4 +13,6 @@ add_executable(hotel_app
     hotel_system.cpp 
     reservation.cpp 
     room.cpp
+    additional_service.cpp
+    person.cpp
 )

@@ -8,7 +8,8 @@ private:
   int workerID;
 
 public:
-  HotelReceptionist(std::string name, std::string surname, int id, int workerID);
+  HotelReceptionist(const std::string &name, const std::string &surname, int id, int workerID);
+  void displayData() const override;
   void guestCheckIn(int reservationId, HotelSystem &system);
   void guestCheckOut(int reservationId, HotelSystem &system);
 };

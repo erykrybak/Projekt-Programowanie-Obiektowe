@@ -7,6 +7,6 @@ private:
   double price;
 public:
   AdditionalService(std::string name, double price);
-  std::string getName();
-double getPrice();
+  double getPrice() const;
+  std::string getName() const;
 };
