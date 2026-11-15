@@ -5,6 +5,7 @@ private:
   double roomRate;
 
 public:
-  int getRoomNumber() const;
   Room(int roomNumber, double roomRate);
+  int getRoomNumber() const;
+  double getRoomRate() const;
 };

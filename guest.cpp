@@ -1,4 +1,4 @@
 #include "guest.h"
 
-Guest::Guest(std::string name, std::string surname, int id)
+Guest::Guest(const std::string& name, const std::string& surname, int id)
     : Person(name, surname, id) {}
