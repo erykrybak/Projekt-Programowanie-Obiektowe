@@ -5,7 +5,7 @@ using namespace std;
 HotelReceptionist::HotelReceptionist(const string& name, const string& surname, int id, int workerID)
     : Person(name, surname, id), workerID(workerID) {}
 
-void HotelReceptionist::displayData() {
+void HotelReceptionist::displayData() const {
     cout << "Imię: " << name << "\nNazwisko: " << surname << "\nID pracownika: " << workerID << endl;
 }
 
