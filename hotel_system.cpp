@@ -86,3 +86,28 @@ roomList.push_back(room);
 void HotelSystem::addGuest(Guest guest){
 guestList.push_back(guest);
 }
+
+  void HotelSystem::newService(AdditionalService service){
+     additionalServicesList.push_back(service);
+  }
+  bool HotelSystem::addService(int reservationID, std::string serviceName){
+      for(std::size_t i =0;i<reservationList.size();i++){
+        if(reservationList[i].getId()==reservationID){
+            for(std::size_t j=0; j<additionalServicesList.size();j++){
+                if(additionalServicesList[j].getName() == serviceName){
+                    reservationList[i].addService(additionalServicesList[j]);
+                    return true;
+                }
+            }
+        }
+      }
+          return false;
+  }
+  std::vector<std::string> HotelSystem::getServiceNames(){
+      std::vector<std::string> serviceNames;
+      for(std::size_t i =0; i<additionalServicesList.size();i++){
+        serviceNames.push_back(additionalServicesList[i].getName());
+      }
+      return serviceNames;
+  }
+

@@ -2,19 +2,13 @@
 #include <ctime>
 using namespace std;
 
-double Reservation::countCancellationFee(const Reservation &res,
-                                         int daysToCancel,
-                                         double cancellationFeeAmount) {
-  double cancellationFee = 0;
-  time_t timestamp = time(NULL);
-
-  double secondsInDay = 86400.0;
-  int dayDifference = difftime(timestamp, res.createDate) / secondsInDay;
-
-  if (dayDifference > daysToCancel) {
-    cancellationFee += cancellationFeeAmount;
+double Reservation::countCancellationFee(int daysToCancel,
+                                         double cancellationFeeAmount) const {
+    double daysLeft = difftime(startDate, time(nullptr)) / 86400.0;
+  if (daysLeft < daysToCancel) {
+    return cancellationFeeAmount;
   }
-  return cancellationFee;
+  return 0;
 }
 
 int Reservation::getRoomNumber() const { return roomNumber; }
@@ -36,5 +30,18 @@ void Reservation::checkIn() {
     checkInTime = std::time(nullptr);
 }
 bool Reservation::isCheckedIn() { return checkedIn; }
-int Reservation::getGuestId() { return guestId; }
+int Reservation::getGuestId() const { return guestId; }
+  void Reservation::addService(const AdditionalService &service){
+      services.push_back(service);
+  }
+  double Reservation::getServicesTotal(){
+      double total = 0;
+      for(std::size_t i =0;i< services.size();i++){
+        total += services[i].getPrice();
+      }
+      return total;
+  }
+
+  std::time_t Reservation::getStartDate(){return startDate;}
+  std::time_t Reservation::getEndDate(){return endDate;}
 

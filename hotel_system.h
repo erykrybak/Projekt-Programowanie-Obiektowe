@@ -4,11 +4,13 @@
 #include "room.h"
 #include <ctime>
 #include <vector>
+#include "additional_service.h"
 
 class HotelSystem {
 private:
   std::vector<Room> roomList;
   std::vector<Reservation> reservationList;
+  std::vector<AdditionalService> additionalServicesList;
   std::vector<Guest> guestList;
   int nextReservationId = 0;
 
@@ -21,4 +23,7 @@ public:
   bool guestCheckOut(int rId);
   void addRoom(Room room);
   void addGuest(Guest guest);
+  void newService(AdditionalService service);
+  bool addService(int reservationID, std::string serviceName);
+  std::vector<std::string> getServiceNames();
 };

@@ -1,6 +1,7 @@
 #pragma once
 #include "additional_service.h"
 #include <ctime>
+#include <vector>
 
 class Reservation {
 private:
@@ -12,11 +13,12 @@ private:
   int id;
   int guestId;
   bool checkedIn = false;
-  std::time_t checkInTime;
+  std::time_t checkInTime {0};
+  std::vector<AdditionalService> services;
 
 public:
-  double countCancellationFee(const Reservation &res, int daysToCancel,
-                              double cancellationFeeAmount);
+  double countCancellationFee(int daysToCancel,
+                              double cancellationFeeAmount)const;
   Reservation(int id, int guestId, int roomNumber, std::time_t startDate,
               std::time_t endDate);
 
@@ -27,5 +29,9 @@ public:
   bool coversDate(time_t checkStartDate, time_t checkEndDate) const;
   void checkIn();
   bool isCheckedIn();
-  int getGuestId();
+  int getGuestId() const;
+  void addService(const AdditionalService &service);
+  double getServicesTotal();
+  std::time_t getStartDate();
+  std::time_t getEndDate();
 };
