@@ -1,10 +1,11 @@
 #pragma once
+#include "additional_service.h"
+#include "bill.h"
 #include "guest.h"
 #include "reservation.h"
 #include "room.h"
 #include <ctime>
 #include <vector>
-#include "additional_service.h"
 
 class HotelSystem {
 private:
@@ -12,7 +13,11 @@ private:
   std::vector<Reservation> reservationList;
   std::vector<AdditionalService> additionalServicesList;
   std::vector<Guest> guestList;
+  std::vector<Bill> billList;
   int nextReservationId = 0;
+  int nextBillId = 0;
+  const int daysToCancel = 2;
+  const double cancellationFeeAmount = 50.0;
 
 public:
   std::vector<int> checkAvailability(std::time_t startDate,
@@ -20,10 +25,11 @@ public:
   int makeReservation(int guestId, time_t from, time_t to, int roomNumber);
   bool cancelReservation(int reservationID);
   bool guestCheckIn(int rId);
-  bool guestCheckOut(int rId);
+  int guestCheckOut(int rId);
   void addRoom(Room room);
   void addGuest(Guest guest);
   void newService(AdditionalService service);
   bool addService(int reservationID, std::string serviceName);
   std::vector<std::string> getServiceNames();
+  double getBillTotal(int billId) const;
 };

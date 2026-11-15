@@ -4,7 +4,7 @@ using namespace std;
 
 double Reservation::countCancellationFee(int daysToCancel,
                                          double cancellationFeeAmount) const {
-    double daysLeft = difftime(startDate, time(nullptr)) / 86400.0;
+  double daysLeft = difftime(startDate, time(nullptr)) / 86400.0;
   if (daysLeft < daysToCancel) {
     return cancellationFeeAmount;
   }
@@ -25,23 +25,22 @@ Reservation::Reservation(int id, int guestId, int roomNumber,
 int Reservation::getId() const { return id; }
 bool Reservation::isCanceled() const { return canceled; }
 void Reservation::cancel() { canceled = true; }
-void Reservation::checkIn() { 
-    checkedIn = true; 
-    checkInTime = std::time(nullptr);
+void Reservation::checkIn() {
+  checkedIn = true;
+  checkInTime = std::time(nullptr);
 }
-bool Reservation::isCheckedIn() { return checkedIn; }
+bool Reservation::isCheckedIn() const { return checkedIn; }
 int Reservation::getGuestId() const { return guestId; }
-  void Reservation::addService(const AdditionalService &service){
-      services.push_back(service);
+void Reservation::addService(const AdditionalService &service) {
+  services.push_back(service);
+}
+double Reservation::getServicesTotal() const {
+  double total = 0;
+  for (std::size_t i = 0; i < services.size(); i++) {
+    total += services[i].getPrice();
   }
-  double Reservation::getServicesTotal(){
-      double total = 0;
-      for(std::size_t i =0;i< services.size();i++){
-        total += services[i].getPrice();
-      }
-      return total;
-  }
+  return total;
+}
 
-  std::time_t Reservation::getStartDate(){return startDate;}
-  std::time_t Reservation::getEndDate(){return endDate;}
-
+std::time_t Reservation::getStartDate() const { return startDate; }
+std::time_t Reservation::getEndDate() const { return endDate; }

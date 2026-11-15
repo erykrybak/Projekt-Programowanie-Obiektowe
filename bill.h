@@ -1,6 +1,6 @@
 #pragma once
-#include "room.h"
 #include "additional_service.h"
+#include "room.h"
 #include <ctime>
 #include <vector>
 
@@ -11,7 +11,10 @@ private:
   double total;
 
 public:
-  Bill(int billID, const Room &room, const std::vector<AdditionalService*> &addedServices, time_t startDate, time_t endDate);
-  void countTotal(const Room &room, const std::vector<AdditionalService*> &addedServices, time_t startDate, time_t endDate);
+  Bill(int billID, const Room &room, double servicesTotal, time_t startDate,
+       time_t endDate);
+  void countTotal(const Room &room, double servicesTotal, time_t startDate,
+                  time_t endDate);
   double getTotal() const;
+  int getId() const;
 };

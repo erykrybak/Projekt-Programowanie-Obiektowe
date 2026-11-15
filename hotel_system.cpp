@@ -51,6 +51,16 @@ int HotelSystem::makeReservation(int guestId, time_t from, time_t to,
 bool HotelSystem::cancelReservation(int reservationID) {
   for (size_t i = 0; i < reservationList.size(); i++) {
     if (reservationID == reservationList[i].getId()) {
+      if (reservationList[i].isCanceled())
+        return true;
+      if (reservationList[i].isCheckedIn())
+        return false;
+      for (size_t j = 0; j < guestList.size(); j++) {
+        if (reservationList[i].getGuestId() == guestList[j].getId()) {
+          guestList[j].addFee(reservationList[i].countCancellationFee(
+              daysToCancel, cancellationFeeAmount));
+        }
+      }
       reservationList[i].cancel();
       return true;
     }
@@ -61,53 +71,78 @@ bool HotelSystem::cancelReservation(int reservationID) {
 bool HotelSystem::guestCheckIn(int rId) {
   for (size_t i = 0; i < reservationList.size(); i++) {
     if (rId == reservationList[i].getId()) {
+      if (reservationList[i].isCheckedIn() || reservationList[i].isCanceled())
+        return false;
       reservationList[i].checkIn();
       return true;
     }
   }
   return false;
 }
-bool HotelSystem::guestCheckOut(int rId) {
+int HotelSystem::guestCheckOut(int rId) {
   for (size_t i = 0; i < reservationList.size(); i++) {
-    if (rId == reservationList[i].getId()) {
-      if (!reservationList[i].isCheckedIn()) {
-        return false;
+    if (rId ==
+        reservationList[i]
+            .getId()) { // sprawdzamy czy istnieje rezerwacja o szukanym ID
+      if (!reservationList[i].isCheckedIn()) { // nie da się wymeldować
+                                               // niezameldowanego gościa
+        return -1;
       }
-      reservationList.erase(reservationList.begin() + i);
-      return true;
+      for (size_t j = 0; j < roomList.size(); j++) {
+        if (roomList[j].getRoomNumber() ==
+            reservationList[i].getRoomNumber()) { // szukanie pokoju na liście
+                                                  // żeby przekazać go fakturze
+          billList.push_back(Bill(
+              nextBillId, roomList[j], reservationList[i].getServicesTotal(),
+              reservationList[i].getStartDate(),
+              reservationList[i]
+                  .getEndDate())); // Stworzenie faktury i dodanie jej do listy
+          nextBillId++;
+          reservationList.erase(reservationList.begin() +
+                                i); // Usuwamy rezerwację po wymeldowaniu
+          return nextBillId - 1;    // funkcja zwraca ID utworzonej faktury.
+        }
+      }
+      return -1;
+    }
+  }
+  return -1;
+}
+void HotelSystem::addRoom(Room room) { roomList.push_back(room); }
+
+void HotelSystem::addGuest(Guest guest) { guestList.push_back(guest); }
+
+void HotelSystem::newService(AdditionalService service) {
+  additionalServicesList.push_back(service);
+}
+bool HotelSystem::addService(int reservationID, std::string serviceName) {
+  for (std::size_t i = 0; i < reservationList.size(); i++) {
+    if (reservationList[i].getId() == reservationID) {
+      if (reservationList[i].isCanceled())
+        return false;
+      for (std::size_t j = 0; j < additionalServicesList.size(); j++) {
+        if (additionalServicesList[j].getName() == serviceName) {
+          reservationList[i].addService(additionalServicesList[j]);
+          return true;
+        }
+      }
     }
   }
   return false;
 }
-void HotelSystem::addRoom(Room room){
-roomList.push_back(room);
+std::vector<std::string> HotelSystem::getServiceNames() {
+  std::vector<std::string> serviceNames;
+  for (std::size_t i = 0; i < additionalServicesList.size(); i++) {
+    serviceNames.push_back(additionalServicesList[i].getName());
+  }
+  return serviceNames;
 }
 
-void HotelSystem::addGuest(Guest guest){
-guestList.push_back(guest);
+double HotelSystem::getBillTotal(int billId) const {
+  for (std::size_t i = 0; i < billList.size(); i++) {
+    if (billId == billList[i].getId()) {
+      return billList[i].getTotal();
+    }
+  }
+  return -1;
 }
-
-  void HotelSystem::newService(AdditionalService service){
-     additionalServicesList.push_back(service);
-  }
-  bool HotelSystem::addService(int reservationID, std::string serviceName){
-      for(std::size_t i =0;i<reservationList.size();i++){
-        if(reservationList[i].getId()==reservationID){
-            for(std::size_t j=0; j<additionalServicesList.size();j++){
-                if(additionalServicesList[j].getName() == serviceName){
-                    reservationList[i].addService(additionalServicesList[j]);
-                    return true;
-                }
-            }
-        }
-      }
-          return false;
-  }
-  std::vector<std::string> HotelSystem::getServiceNames(){
-      std::vector<std::string> serviceNames;
-      for(std::size_t i =0; i<additionalServicesList.size();i++){
-        serviceNames.push_back(additionalServicesList[i].getName());
-      }
-      return serviceNames;
-  }
-
