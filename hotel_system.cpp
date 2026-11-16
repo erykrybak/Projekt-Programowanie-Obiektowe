@@ -48,6 +48,7 @@ int HotelSystem::makeReservation(int guestId, time_t from, time_t to,
     return -1;
   }
 }
+
 bool HotelSystem::cancelReservation(int reservationID) {
   for (size_t i = 0; i < reservationList.size(); i++) {
     if (reservationID == reservationList[i].getId()) {
@@ -79,6 +80,7 @@ bool HotelSystem::guestCheckIn(int rId) {
   }
   return false;
 }
+
 int HotelSystem::guestCheckOut(int rId) {
   for (size_t i = 0; i < reservationList.size(); i++) {
     if (rId ==
@@ -108,13 +110,19 @@ int HotelSystem::guestCheckOut(int rId) {
   }
   return -1;
 }
-void HotelSystem::addRoom(Room room) { roomList.push_back(room); }
 
-void HotelSystem::addGuest(Guest guest) { guestList.push_back(guest); }
+void HotelSystem::addRoom(Room room) { 
+    roomList.push_back(room); 
+}
+
+void HotelSystem::addGuest(Guest guest) { 
+    guestList.push_back(guest); 
+}
 
 void HotelSystem::newService(AdditionalService service) {
   additionalServicesList.push_back(service);
 }
+
 bool HotelSystem::addService(int reservationID, std::string serviceName) {
   for (std::size_t i = 0; i < reservationList.size(); i++) {
     if (reservationList[i].getId() == reservationID) {
@@ -130,6 +138,7 @@ bool HotelSystem::addService(int reservationID, std::string serviceName) {
   }
   return false;
 }
+
 std::vector<std::string> HotelSystem::getServiceNames() {
   std::vector<std::string> serviceNames;
   for (std::size_t i = 0; i < additionalServicesList.size(); i++) {
@@ -146,3 +155,8 @@ double HotelSystem::getBillTotal(int billId) const {
   }
   return -1;
 }
+
+std::vector<Guest> HotelSystem::getGuestList() {
+    return guestList;
+}
+

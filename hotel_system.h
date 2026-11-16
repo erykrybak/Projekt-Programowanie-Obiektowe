@@ -32,4 +32,5 @@ public:
   bool addService(int reservationID, std::string serviceName);
   std::vector<std::string> getServiceNames();
   double getBillTotal(int billId) const;
+  std::vector<Guest> getGuestList();
 };
