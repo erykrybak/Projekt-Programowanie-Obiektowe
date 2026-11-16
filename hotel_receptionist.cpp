@@ -7,8 +7,8 @@ HotelReceptionist::HotelReceptionist(const string &name, const string &surname,
     : Person(name, surname, id), workerID(workerID) {}
 
 void HotelReceptionist::displayData() const {
-  cout << "Imię: " << getName() << "\nNazwisko: " << getSurname()
-       << "\nID pracownika: " << workerID << endl;
+  Person::displayData();
+  cout << "ID pracownika: " << workerID << endl;
 }
 
 void HotelReceptionist::guestCheckIn(int reservationId, HotelSystem &system) {

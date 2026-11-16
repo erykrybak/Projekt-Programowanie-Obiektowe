@@ -13,5 +13,5 @@ public:
   int getId() const;
   std::string getName() const;
   std::string getSurname() const;
-  virtual void displayData() const;
+  virtual void displayData() const = 0;
 };
