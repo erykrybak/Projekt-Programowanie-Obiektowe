@@ -41,7 +41,7 @@ int HotelSystem::makeReservation(int guestId, time_t from, time_t to,
            roomNumber) != currentlyAvailableRooms.end() &&
       from < to) {
     reservationList.push_back(
-        Reservation(nextReservationId, guestId, roomNumber, from, to));
+        Reservation(nextReservationId, guestId, roomNumber, from, to, now()));
     nextReservationId++;
     return nextReservationId - 1;
   } else {
@@ -49,9 +49,11 @@ int HotelSystem::makeReservation(int guestId, time_t from, time_t to,
   }
 }
 
-bool HotelSystem::cancelReservation(int reservationID) {
+bool HotelSystem::cancelReservation(int guestId, int reservationID) {
   for (size_t i = 0; i < reservationList.size(); i++) {
     if (reservationID == reservationList[i].getId()) {
+      if (reservationList[i].getGuestId() != guestId)
+        return false; // nie można anulować cudzej rezerwacji.
       if (reservationList[i].isCanceled())
         return true;
       if (reservationList[i].isCheckedIn())
@@ -59,7 +61,7 @@ bool HotelSystem::cancelReservation(int reservationID) {
       for (size_t j = 0; j < guestList.size(); j++) {
         if (reservationList[i].getGuestId() == guestList[j].getId()) {
           guestList[j].addFee(reservationList[i].countCancellationFee(
-              daysToCancel, cancellationFeeAmount));
+              daysToCancel, cancellationFeeAmount, now()));
         }
       }
       reservationList[i].cancel();
@@ -74,7 +76,7 @@ bool HotelSystem::guestCheckIn(int rId) {
     if (rId == reservationList[i].getId()) {
       if (reservationList[i].isCheckedIn() || reservationList[i].isCanceled())
         return false;
-      reservationList[i].checkIn();
+      reservationList[i].checkIn(now());
       return true;
     }
   }
@@ -97,8 +99,8 @@ int HotelSystem::guestCheckOut(int rId) {
           billList.push_back(Bill(
               nextBillId, roomList[j], reservationList[i].getServicesTotal(),
               reservationList[i].getStartDate(),
-              reservationList[i]
-                  .getEndDate())); // Stworzenie faktury i dodanie jej do listy
+              reservationList[i].getEndDate(),
+              now())); // Stworzenie faktury i dodanie jej do listy
           nextBillId++;
           reservationList.erase(reservationList.begin() +
                                 i); // Usuwamy rezerwację po wymeldowaniu
@@ -111,13 +113,9 @@ int HotelSystem::guestCheckOut(int rId) {
   return -1;
 }
 
-void HotelSystem::addRoom(Room room) { 
-    roomList.push_back(room); 
-}
+void HotelSystem::addRoom(Room room) { roomList.push_back(room); }
 
-void HotelSystem::addGuest(Guest guest) { 
-    guestList.push_back(guest); 
-}
+void HotelSystem::addGuest(Guest guest) { guestList.push_back(guest); }
 
 void HotelSystem::newService(AdditionalService service) {
   additionalServicesList.push_back(service);
@@ -156,7 +154,32 @@ double HotelSystem::getBillTotal(int billId) const {
   return -1;
 }
 
-std::vector<Guest> HotelSystem::getGuestList() {
-    return guestList;
+const Guest *HotelSystem::findGuest(int id) const {
+  for (size_t i = 0; i < guestList.size(); i++) {
+    if (guestList[i].getId() == id) {
+      return &guestList[i];
+    }
+  }
+  return nullptr;
 }
 
+void HotelSystem::setCurrentTime(time_t t) { fakeNow = t; }
+
+time_t HotelSystem::now() const {
+  if (fakeNow != 0) {
+    return fakeNow;
+  } else {
+    return time(nullptr);
+  }
+}
+
+bool HotelSystem::displayGuestReservations(int guestId) const {
+  bool found = false;
+  for (size_t i = 0; i < reservationList.size(); i++) {
+    if (reservationList[i].getGuestId() == guestId) {
+      reservationList[i].displayData();
+      found = true;
+    }
+  }
+  return found;
+}

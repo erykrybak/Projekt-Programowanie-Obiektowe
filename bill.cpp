@@ -3,8 +3,8 @@
 using namespace std;
 
 Bill::Bill(int billID, const Room &room, double servicesTotal, time_t startDate,
-           time_t endDate)
-    : billID(billID), creationDate(time(nullptr)), total(0.0) {
+           time_t endDate, time_t creationDate)
+    : billID(billID), creationDate(creationDate), total(0.0) {
   countTotal(room, servicesTotal, startDate, endDate);
 }
 

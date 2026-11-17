@@ -17,21 +17,22 @@ private:
   std::vector<AdditionalService> services;
 
 public:
-  double countCancellationFee(int daysToCancel,
-                              double cancellationFeeAmount) const;
+  double countCancellationFee(int daysToCancel, double cancellationFeeAmount,
+                              std::time_t now) const;
   Reservation(int id, int guestId, int roomNumber, std::time_t startDate,
-              std::time_t endDate);
+              std::time_t endDate, std::time_t createDate);
 
   int getId() const;
   bool isCanceled() const;
   void cancel();
   int getRoomNumber() const;
   bool coversDate(time_t checkStartDate, time_t checkEndDate) const;
-  void checkIn();
+  void checkIn(std::time_t now);
   bool isCheckedIn() const;
   int getGuestId() const;
   void addService(const AdditionalService &service);
   double getServicesTotal() const;
   std::time_t getStartDate() const;
   std::time_t getEndDate() const;
+  void displayData() const;
 };

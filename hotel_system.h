@@ -18,12 +18,13 @@ private:
   int nextBillId = 0;
   const int daysToCancel = 2;
   const double cancellationFeeAmount = 50.0;
+  std::time_t fakeNow = 0;
 
 public:
   std::vector<int> checkAvailability(std::time_t startDate,
                                      std::time_t endDate);
   int makeReservation(int guestId, time_t from, time_t to, int roomNumber);
-  bool cancelReservation(int reservationID);
+  bool cancelReservation(int guestId, int reservationID);
   bool guestCheckIn(int rId);
   int guestCheckOut(int rId);
   void addRoom(Room room);
@@ -32,5 +33,8 @@ public:
   bool addService(int reservationID, std::string serviceName);
   std::vector<std::string> getServiceNames();
   double getBillTotal(int billId) const;
-  std::vector<Guest> getGuestList();
+  const Guest *findGuest(int id) const;
+  void setCurrentTime(std::time_t t);
+  std::time_t now() const;
+  bool displayGuestReservations(int guestId) const;
 };

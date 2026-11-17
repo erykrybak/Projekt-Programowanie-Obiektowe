@@ -12,7 +12,7 @@ private:
 
 public:
   Bill(int billID, const Room &room, double servicesTotal, time_t startDate,
-       time_t endDate);
+       time_t endDate, time_t creationDate);
   void countTotal(const Room &room, double servicesTotal, time_t startDate,
                   time_t endDate);
   double getTotal() const;
