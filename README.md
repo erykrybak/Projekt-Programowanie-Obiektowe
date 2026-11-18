@@ -86,10 +86,10 @@ System zarządzania hotelem ma za zadanie umożliwić gościom dokonywanie rezer
 
 7. Nalicz opłatę manipulacyjną
 
-- Relacja: <<extend>> dla przypadku „Anuluj rezerwację”
+- Relacja: `<<extend>>` dla przypadku „Anuluj rezerwację”
 - Opis: System oblicza i nalicza opłatę manipulacyjną przypisaną do konta gościa, jeśli anulowanie rezerwacji nastąpi po czasie określonym przez hotel.
 
 8. Nalicz fakturę
 
-- Relacja: <<include>> dla przypadku „Wymelduj gościa”
+- Relacja: `<<include>>` dla przypadku „Wymelduj gościa”
 - Opis: Obliczenie faktury według wzoru: liczba dób × stawka + usługi dodatkowe, wykonywane automatycznie przy wymeldowaniu gościa.
