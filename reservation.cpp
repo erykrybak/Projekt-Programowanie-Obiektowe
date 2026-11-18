@@ -14,7 +14,9 @@ static string formatDate(time_t t) {
 double Reservation::countCancellationFee(int daysToCancel,
                                          double cancellationFeeAmount,
                                          std::time_t now) const {
-  double daysLeft = difftime(startDate, now) / 86400.0;
+  double daysLeft =
+      difftime(startDate, now) /
+      86400.0; // wyznaczenie dni pozostałych do terminu rozpoczęcia pobytu
   if (daysLeft < daysToCancel) {
     return cancellationFeeAmount;
   }
@@ -24,7 +26,9 @@ double Reservation::countCancellationFee(int daysToCancel,
 int Reservation::getRoomNumber() const { return roomNumber; }
 
 bool Reservation::coversDate(time_t checkStartDate, time_t checkEndDate) const {
-  return !canceled && startDate < checkEndDate && checkStartDate < endDate;
+  return !canceled && startDate < checkEndDate &&
+         checkStartDate <
+             endDate; // sprawdza czy dany zakres pokrywa się z rezerwacją
 }
 
 Reservation::Reservation(int id, int guestId, int roomNumber,

@@ -3,8 +3,9 @@
 
 class AdditionalService {
 private:
-  std::string name;
+  std::string name; // nazwa usługi
   double price;
+
 public:
   AdditionalService(std::string name, double price);
   double getPrice() const;

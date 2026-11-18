@@ -1,0 +1,130 @@
+%%{init: {
+  "theme": "base",
+  "fontFamily": "Arial, Helvetica, sans-serif",
+  "class": { "htmlLabels": false },
+  "themeVariables": {
+    "fontFamily": "Arial, Helvetica, sans-serif",
+    "fontSize": "14px",
+    "lineColor": "#000000",
+    "textColor": "#000000",
+    "edgeLabelBackground": "#ffffff"
+  }
+}}%%
+classDiagram
+    Person <|-- Guest
+    Person <|-- HotelReceptionist
+    HotelReceptionist ..> HotelSystem : uses
+    HotelSystem "1" o-- "*" Guest : guestList
+    HotelSystem "1" o-- "*" Room : roomList
+    HotelSystem "1" o-- "*" AdditionalService : additionalServicesList
+    HotelSystem "1" *-- "*" Reservation : reservationList
+    HotelSystem "1" *-- "*" Bill : billList
+    Reservation "1" *-- "*" AdditionalService : services
+    Reservation "*" --> "1" Guest : guestId
+    Reservation "*" --> "1" Room : roomNumber
+    Bill ..> Room : uses
+    class Person {
+      <<abstract>>
+      -name : string
+      -surname : string
+      -id : int
+      +Person(name : string, surname : string, id : int)
+      +getId() : int
+      +getName() : string
+      +getSurname() : string
+      +displayData() : void*
+    }
+    class Guest{
+      -outstandingFees : double
+      +Guest(name : string, surname : string, id : int)
+      +addFee(fee : double) : void
+      +getOutstandingFees() : double
+      +displayData() : void
+    }
+    class HotelReceptionist{
+      -workerID : int
+      +HotelReceptionist(name : string, surname : string, id : int, workerID : int)
+      +displayData() : void
+      +guestCheckIn(reservationId : int, system : HotelSystem) : void
+      +guestCheckOut(reservationId : int, system : HotelSystem) : void
+    }
+    class HotelSystem{
+      -roomList : List~Room~
+      -reservationList : List~Reservation~
+      -additionalServicesList : List~AdditionalService~
+      -guestList : List~Guest~
+      -billList : List~Bill~
+      -nextReservationId : int
+      -nextBillId : int
+      -daysToCancel : int
+      -cancellationFeeAmount : double
+      -fakeNow : Date
+      +checkAvailability(startDate : Date, endDate : Date) : List~int~
+      +makeReservation(guestId : int, from : Date, to : Date, roomNumber : int) : int
+      +cancelReservation(guestId : int, reservationID : int) : boolean
+      +guestCheckIn(rId : int) : boolean
+      +guestCheckOut(rId : int) : int
+      +addRoom(room : Room) : void
+      +addGuest(guest : Guest) : void
+      +newService(service : AdditionalService) : void
+      +addService(reservationID : int, serviceName : string) : boolean
+      +getServiceNames() : List~string~
+      +getBillTotal(billId : int) : double
+      +findGuest(id : int) : Guest
+      +setCurrentTime(t : Date) : void
+      +now() : Date
+      +displayGuestReservations(guestId : int) : boolean
+    }
+    class Bill{
+      -billID : int
+      -creationDate : Date
+      -total : double
+      +Bill(billID : int, room : Room, servicesTotal : double, startDate : Date, endDate : Date, creationDate : Date)
+      +countTotal(room : Room, servicesTotal : double, startDate : Date, endDate : Date) : void
+      +getTotal() : double
+      +getId() : int
+    }
+    class Reservation{
+      -startDate : Date
+      -endDate : Date
+      -canceled : boolean
+      -createDate : Date
+      -roomNumber : int
+      -id : int
+      -guestId : int
+      -checkedIn : boolean
+      -checkInTime : Date
+      -services : List~AdditionalService~
+      +Reservation(id : int, guestId : int, roomNumber : int, startDate : Date, endDate : Date, createDate : Date)
+      +countCancellationFee(daysToCancel : int, cancellationFeeAmount : double, now : Date) : double
+      +getId() : int
+      +isCanceled() : boolean
+      +cancel() : void
+      +getRoomNumber() : int
+      +coversDate(checkStartDate : Date, checkEndDate : Date) : boolean
+      +checkIn(now : Date) : void
+      +isCheckedIn() : boolean
+      +getGuestId() : int
+      +addService(service : AdditionalService) : void
+      +getServicesTotal() : double
+      +getStartDate() : Date
+      +getEndDate() : Date
+      +displayData() : void
+    }
+    class AdditionalService{
+      -name : string
+      -price : double
+      +AdditionalService(name : string, price : double)
+      +getName() : string
+      +getPrice() : double
+    }
+    class Room{
+      -roomNumber : int
+      -roomRate : double
+      +Room(roomNumber : int, roomRate : double)
+      +getRoomNumber() : int
+      +getRoomRate() : double
+    }
+
+    classDef blue fill:#7fc8f8,stroke:#000000,stroke-width:1px,color:#000000
+    class Person,Guest,HotelReceptionist,HotelSystem,Bill,Reservation,AdditionalService,Room blue

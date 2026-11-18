@@ -10,9 +10,10 @@ Bill::Bill(int billID, const Room &room, double servicesTotal, time_t startDate,
 
 void Bill::countTotal(const Room &room, double servicesTotal, time_t startDate,
                       time_t endDate) {
-  double seconds = difftime(endDate, startDate);
+  double seconds = difftime(endDate, startDate); // czas pobytu w sekundach
   double seconds_in_a_day = 86400;
-  int days = static_cast<int>(seconds / seconds_in_a_day);
+  int days = static_cast<int>(
+      seconds / seconds_in_a_day); // przeliczenie czasu pobytu na dni
   if (days < 1) {
     days = 1;
   }

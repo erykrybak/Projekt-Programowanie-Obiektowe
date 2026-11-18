@@ -55,13 +55,16 @@ bool HotelSystem::cancelReservation(int guestId, int reservationID) {
       if (reservationList[i].getGuestId() != guestId)
         return false; // nie można anulować cudzej rezerwacji.
       if (reservationList[i].isCanceled())
-        return true;
+        return true; // rezerwacja jest już anulowana, więc pożądany efekt jest
+                     // już osiągnięty
       if (reservationList[i].isCheckedIn())
-        return false;
+        return false; // nie można anulować rezerwacji która jest aktualnie
+                      // realizowana
       for (size_t j = 0; j < guestList.size(); j++) {
         if (reservationList[i].getGuestId() == guestList[j].getId()) {
           guestList[j].addFee(reservationList[i].countCancellationFee(
-              daysToCancel, cancellationFeeAmount, now()));
+              daysToCancel, cancellationFeeAmount,
+              now())); // naliczenie opłaty za anulowanie rezerwacji
         }
       }
       reservationList[i].cancel();
@@ -75,7 +78,8 @@ bool HotelSystem::guestCheckIn(int rId) {
   for (size_t i = 0; i < reservationList.size(); i++) {
     if (rId == reservationList[i].getId()) {
       if (reservationList[i].isCheckedIn() || reservationList[i].isCanceled())
-        return false;
+        return false; // nie da się ponownie zameldować ani zameldować dla
+                      // anulowanej rezerwacji
       reservationList[i].checkIn(now());
       return true;
     }
@@ -125,7 +129,7 @@ bool HotelSystem::addService(int reservationID, std::string serviceName) {
   for (std::size_t i = 0; i < reservationList.size(); i++) {
     if (reservationList[i].getId() == reservationID) {
       if (reservationList[i].isCanceled())
-        return false;
+        return false; // nie dodajemy serwisów do anulowanej już rezerwacji
       for (std::size_t j = 0; j < additionalServicesList.size(); j++) {
         if (additionalServicesList[j].getName() == serviceName) {
           reservationList[i].addService(additionalServicesList[j]);
@@ -163,9 +167,12 @@ const Guest *HotelSystem::findGuest(int id) const {
   return nullptr;
 }
 
-void HotelSystem::setCurrentTime(time_t t) { fakeNow = t; }
+void HotelSystem::setCurrentTime(time_t t) {
+  fakeNow = t;
+} // ustawienie fałszywego czasu na potrzeby prezentacji
 
-time_t HotelSystem::now() const {
+time_t HotelSystem::now()
+    const { // zwraca aktualny czas, lub fałszywy jeżeli jest ustawiony
   if (fakeNow != 0) {
     return fakeNow;
   } else {

@@ -1,0 +1,60 @@
+%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "fontFamily": "Arial, sans-serif",
+    "fontSize": "14px",
+    "actorBkg": "#7fc8f8",
+    "actorBorder": "#000000",
+    "actorTextColor": "#000000",
+    "actorLineColor": "#000000",
+    "signalColor": "#000000",
+    "signalTextColor": "#000000",
+    "activationBkgColor": "#7fc8f8",
+    "activationBorderColor": "#000000",
+    "labelBoxBkgColor": "#ffffff",
+    "labelBoxBorderColor": "#000000",
+    "labelTextColor": "#000000",
+    "loopTextColor": "#000000",
+    "noteBkgColor": "#ffffff",
+    "noteBorderColor": "#000000",
+    "noteTextColor": "#000000"
+  },
+  "sequence": {
+    "mirrorActors": false,
+    "useMaxWidth": false,
+    "wrap": false,
+    "width": 200,
+    "height": 50,
+    "actorMargin": 160,
+    "messageMargin": 45,
+    "boxMargin": 12,
+    "boxTextMargin": 8,
+    "diagramMarginX": 30,
+    "diagramMarginY": 20,
+    "messageAlign": "center"
+  }
+}}%%
+sequenceDiagram
+    actor U as Gość
+    participant H as :HotelSystem
+    participant G as g : Guest
+
+    activate U
+    U->>+H: makeReservation(guestId, from, to, roomNumber)
+    H->>+H: checkAvailability(from, to)
+    H--)-H: currentlyAvailableRooms : List#lt;int#gt;
+
+    loop dla każdego g w guestList, do znalezienia guestId
+        H->>+G: getId()
+        G--)-H: id : int
+    end
+
+    alt gość istnieje & pokój dostępny & from < to
+        create participant R as :Reservation
+        H--)R: «create» Reservation(nextReservationId, guestId, roomNumber, from, to, now())
+        H--)U: reservationId : int
+    else dane niepoprawne
+        H--)U: -1
+    end
+    deactivate H
+    deactivate U

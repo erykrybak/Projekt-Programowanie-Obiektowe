@@ -10,7 +10,9 @@
 #include <vector>
 using namespace std;
 
-time_t convertDate(int year, int month, int day) {
+time_t
+convertDate(int year, int month,
+            int day) { // zamienia human readable date z powrotem na timestamp
   struct tm startDate_tm = {};
   startDate_tm.tm_year = year - 1900;
   startDate_tm.tm_mon = month - 1;
@@ -23,7 +25,8 @@ time_t convertDate(int year, int month, int day) {
   return mktime(&startDate_tm);
 }
 
-time_t readDate(const string &label) {
+time_t readDate(
+    const string &label) { // funkcja pomocnicza do wczytania daty z terminala
   int year, month, day;
   cout << "Podaj datę " << label << ":\n";
   cout << "Rok: ";

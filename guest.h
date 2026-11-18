@@ -4,7 +4,7 @@
 
 class Guest : public Person {
 private:
-  double outstandingFees = 0;
+  double outstandingFees = 0; // opłata za anulowanie rezerwacji.
 
 public:
   Guest(const std::string &name, const std::string &surname, int id);

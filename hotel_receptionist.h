@@ -5,7 +5,7 @@
 
 class HotelReceptionist : public Person {
 private:
-  int workerID;
+  int workerID; // id pracownika
 
 public:
   HotelReceptionist(const std::string &name, const std::string &surname, int id,
